@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <link rel="stylesheet" href="con.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Temperature Converter</h1>
+        <form id="converter">
+            <div class="input-group">
+                <label for="degrees">Degrees</label>
+                <input type="number" id="degrees" name="degrees" required>
+            </div>
+            <div class="input-group">
+                <label for="type">Type</label>
+                <select id="type" name="type">
+                    <option value="fahrenheit">Fahrenheit</option>
+                    <option value="celsius">Celsius</option>
+                    <option value="kelvin">Kelvin</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="result">Result</label>
+                <input type="text" id="result" name="result" readonly>
+            </div>
+            <button type="submit" class="btn">Convert</button>
+        </form>
+    </div>
+    <script >
+        document.getElementById('converter').addEventListener('submit', function (event) {
+    event.preventDefault();
+    
+    const degrees = parseFloat(document.getElementById('degrees').value);
+    const type = document.getElementById('type').value;
+    let result;
+
+    if (isNaN(degrees)) {
+        alert('Please enter a valid number');
+        return;
+    }
+
+    if (type === 'fahrenheit') {
+       
+        const celsius = (degrees - 32) * 5 / 9;
+        const kelvin = (degrees - 32) * 5 / 9 + 273.15;
+        result = `${celsius.toFixed(4)} °C / ${kelvin.toFixed(4)} K`;
+    } else if (type === 'celsius') {
+      
+        const fahrenheit = (degrees * 9 / 5) + 32;
+        const kelvin = degrees + 273.15;
+        result = `${fahrenheit.toFixed(4)} °F / ${kelvin.toFixed(4)} K`;
+    } else if (type === 'kelvin') {
+   
+        const celsius = degrees - 273.15;
+        const fahrenheit = (degrees - 273.15) * 9 / 5 + 32;
+        result = `${celsius.toFixed(4)} °C / ${fahrenheit.toFixed(4)} °F`;
+    }
+
+    document.getElementById('result').value = result;
+});
+
+    </script>
+</body>
+</html>
